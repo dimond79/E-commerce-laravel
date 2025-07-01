@@ -82,7 +82,10 @@ Route::post('/logout',[SiteAuthenticationController::class, 'logout'])->name('us
 Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.page');
 Route::post('/wishlist/toggle',[WishlistController::class,'wishlistToggle'])->name('wishlist.toggle');
 
+
+//cart routes
 Route::get('/cart-items',[CartController::class, 'index'])->name('show.cart.item');
+Route::post('/cart/add',[CartController::class, 'addToCart'])->name('add.to.cart');
 
 
 Route::get('/test',function(){

@@ -21,11 +21,11 @@ class IsAdmin
                 return $next($request);
             }
         }
-        return redirect('/login')->with('error','You are not authorized to access this page');
+        return redirect('/admin/login')->with('error','You are not authorized to access this page');
 
-        return response()->json([
-            'message' => 'you are not authorized to access the page'
-        ],403);
+        // return response()->json([
+        //     'message' => 'you are not authorized to access the page'
+        // ],403);
 
 
     }
