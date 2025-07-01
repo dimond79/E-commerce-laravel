@@ -60,10 +60,6 @@ Route::middleware(['auth','is_admin'])->group(function(){
 });
 
 
-
-
-
-
 //frontend routes goes here
 
 
@@ -84,7 +80,7 @@ Route::post('/wishlist/toggle',[WishlistController::class,'wishlistToggle'])->na
 
 
 //cart routes
-Route::get('/cart-items',[CartController::class, 'index'])->name('show.cart.item');
+Route::get('/cart-items',[CartController::class, 'viewCart'])->name('show.cart.item');
 Route::post('/cart/add',[CartController::class, 'addToCart'])->name('add.to.cart');
 
 

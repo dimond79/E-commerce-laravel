@@ -4,42 +4,49 @@
 
 @section('main-content')
 
-@push('styles')
-<style>
-    .wishlist-item {
-        transition: all 0.3s ease;
-    }
-    .wishlist-item:hover {
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-    .price {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #3d3d3d;
-    }
-    .original-price {
-        text-decoration: line-through;
-        color: #888;
-        font-size: 0.9rem;
-    }
-    .navbar-brand {
-        font-weight: bold;
-    }
-    .btn-wishlist {
-        color: #ff4757;
-    }
-    .btn-wishlist:hover {
-        color: #ff0022;
-    }
-    .card-title {
-        font-weight: 600;
-    }
-    .empty-wishlist {
-        min-height: 400px;
-    }
-</style>
+    @push('styles')
+        <style>
+            .wishlist-item {
+                transition: all 0.3s ease;
+            }
 
-@endpush
+            .wishlist-item:hover {
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            }
+
+            .price {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #3d3d3d;
+            }
+
+            .original-price {
+                text-decoration: line-through;
+                color: #888;
+                font-size: 0.9rem;
+            }
+
+            .navbar-brand {
+                font-weight: bold;
+            }
+
+            .btn-wishlist {
+                color: #ff4757;
+            }
+
+            .btn-wishlist:hover {
+                color: #ff0022;
+            }
+
+            .card-title {
+                font-weight: 600;
+            }
+
+            .empty-wishlist {
+                min-height: 400px;
+            }
+        </style>
+    @endpush
 
     <!-- Wishlist Header -->
     {{-- {{$wishlist}} --}}
@@ -47,7 +54,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="mb-4 fw-bold">My Wishlist</h1>
-                <p class="text-muted mb-4">You have {{$wishlists->count()}} items in your wishlist</p>
+                <p class="text-muted mb-4">You have {{ $wishlists->count() }} items in your wishlist</p>
             </div>
         </div>
 
@@ -55,39 +62,42 @@
         <div class="row">
             {{-- {{$wishlists}} --}}
             <!-- Item 1 -->
-            @foreach ($wishlists as $wishlist )
-
-
-            <div class="col-12 mb-4">
-                <div class="card wishlist-item border rounded">
-                    <div class="row g-0">
-                        <div class="col-md-3">
-                            <img src="{{asset($wishlist->featured_image)}}" class="img-fluid rounded-start" height="500px" width="400px" alt="Product image">
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body d-flex flex-column h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h5 class="card-title">{{$wishlist->name}}</h5>
-                                    <button class="btn btn-sm btn-wishlist p-0">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                                <p class="card-text">{{$wishlist->description}} </p>
-                                <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="price">${{$wishlist->sale_price}}</span>
-                                        <span class="original-price ms-2">${{$wishlist->price}}</span>
-                                        <span class="badge bg-danger ms-2">SALE</span>
+            @foreach ($wishlists as $wishlist)
+                <div class="col-12 mb-4">
+                    <div class="card wishlist-item border rounded">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="{{ asset($wishlist->featured_image) }}" class="img-fluid rounded-start"
+                                    height="500px" width="400px" alt="Product image">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body d-flex flex-column h-100">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h5 class="card-title">{{ $wishlist->name }}</h5>
+                                        <button class="btn btn-sm btn-wishlist p-0">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
-                                    <div>
-                                        <button class="btn btn-outline-primary me-2">Add to Cart</button>                                    </div>
+                                    <p class="card-text">{{ $wishlist->description }} </p>
+                                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="price">${{ $wishlist->sale_price }}</span>
+                                            <span class="original-price ms-2">${{ $wishlist->price }}</span>
+                                            <span class="badge bg-danger ms-2">SALE</span>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('add.to.cart') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{$wishlist->id}}">
+                                                <button type="submit" class="btn btn-outline-primary me-2">Add to Cart</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
             @endforeach
 
             <!-- Item 2 -->
@@ -143,7 +153,7 @@
                                     </div>
                                     <div>
                                         {{-- <button class="btn btn-outline-secondary me-2">Compare</button> --}}
-                                        {{-- <button class="btn btn-outline-primary me-2">Add to Cart</button>
+            {{-- <button class="btn btn-outline-primary me-2">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +259,7 @@
         </div> --}}
     </div>
 
-{{-- @push('home-wishlist-scripts')
+    {{-- @push('home-wishlist-scripts')
     @include('frontend.includes.wishlist-script')
 
 @endpush --}}

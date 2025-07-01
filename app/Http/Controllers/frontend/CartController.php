@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index(){
+    public function viewCart(){
+        $cart = Auth::user()->cart()->with('items.product')->first();
+        dd($cart->toArray());
+        // $data = CartItem::all()->where;
+        // dd($data->toArray());
+
         return view('frontend.cart.cart-item');
     }
 
